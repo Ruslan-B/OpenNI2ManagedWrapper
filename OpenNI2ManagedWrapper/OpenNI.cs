@@ -6,12 +6,12 @@ namespace OpenNI2
     {
         internal const int ONI_VERSION_MAJOR = 2;
         internal const int ONI_VERSION_MINOR = 2;
-        internal const int ONI_API_VERSION = ((ONI_VERSION_MAJOR) * 1000 + (ONI_VERSION_MINOR));
+        internal const int ONI_API_VERSION = ((ONI_VERSION_MAJOR)*1000 + (ONI_VERSION_MINOR));
 
         public static unsafe string GetExtendedError()
         {
-            var pMessage = OniCAPI.oniGetExtendedError();
-            return new String((sbyte*)pMessage);
+            byte* pMessage = OniCAPI.oniGetExtendedError();
+            return new String((sbyte*) pMessage);
         }
 
         public static void Initialize()
@@ -24,7 +24,7 @@ namespace OpenNI2
             OniCAPI.oniShutdown();
         }
 
-        public unsafe static DeviceInfo[] GetDevices()
+        public static unsafe DeviceInfo[] GetDevices()
         {
             OniDeviceInfo* pDevices = null;
             int count = 0;
@@ -44,6 +44,4 @@ namespace OpenNI2
             return devices;
         }
     }
-
 }
-

@@ -4,39 +4,71 @@ using System.Runtime.InteropServices;
 
 namespace OpenNI2
 {
-
     public unsafe class VideoFrame : DisposableBase
     {
         private readonly OniFrame* _pFrame;
         private readonly FrameData _data;
 
-        internal VideoFrame(OniFrame*pFrame)
+        internal VideoFrame(OniFrame* pFrame)
         {
             _pFrame = pFrame;
             _data = new FrameData(_pFrame->data, _pFrame->dataSize);
         }
 
-        public FrameData Data { get { return _data; } }
+        public FrameData Data
+        {
+            get { return _data; }
+        }
 
-        public SensorType SensorType { get { return _pFrame->sensorType.ToManaged(); } }
+        public SensorType SensorType
+        {
+            get { return _pFrame->sensorType.ToManaged(); }
+        }
 
-        public ulong Timestamp { get { return _pFrame->timestamp; } }
+        public ulong Timestamp
+        {
+            get { return _pFrame->timestamp; }
+        }
 
-        public int FrameIndex { get { return _pFrame->frameIndex; } }
+        public int FrameIndex
+        {
+            get { return _pFrame->frameIndex; }
+        }
 
-        public int Width { get { return _pFrame->width; } }
+        public int Width
+        {
+            get { return _pFrame->width; }
+        }
 
-        public int Height { get { return _pFrame->height; } }
+        public int Height
+        {
+            get { return _pFrame->height; }
+        }
 
-        public VideoMode VideoMode { get { return _pFrame->videoMode.ToManaged(); } }
+        public VideoMode VideoMode
+        {
+            get { return _pFrame->videoMode.ToManaged(); }
+        }
 
-        public bool CroppingEnabled { get { return _pFrame->croppingEnabled > 0; } }
+        public bool CroppingEnabled
+        {
+            get { return _pFrame->croppingEnabled > 0; }
+        }
 
-        public int CropOriginX { get { return _pFrame->cropOriginX; } }
+        public int CropOriginX
+        {
+            get { return _pFrame->cropOriginX; }
+        }
 
-        public int CropOriginY { get { return _pFrame->cropOriginY; } }
+        public int CropOriginY
+        {
+            get { return _pFrame->cropOriginY; }
+        }
 
-        public int Stride { get { return _pFrame->stride; } }
+        public int Stride
+        {
+            get { return _pFrame->stride; }
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -56,9 +88,15 @@ namespace OpenNI2
                 _size = size;
             }
 
-            public IntPtr Handler { get { return (IntPtr)_pData; } }
+            public IntPtr Handler
+            {
+                get { return (IntPtr) _pData; }
+            }
 
-            public int Size { get { return _size; } }
+            public int Size
+            {
+                get { return _size; }
+            }
 
             public Stream CreateStream()
             {

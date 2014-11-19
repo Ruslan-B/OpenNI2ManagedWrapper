@@ -2,7 +2,6 @@ using System;
 
 namespace OpenNI2
 {
-
     public abstract class DisposableBase : IDisposable
     {
         protected abstract void Dispose(bool disposing);

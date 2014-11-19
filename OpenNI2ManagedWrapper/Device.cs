@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace OpenNI2
 {
@@ -12,20 +11,27 @@ namespace OpenNI2
             _pDevice = pDevice;
         }
 
-        public static Device Open(string uri = null)
+        public static Device Open()
+        {
+            _OniDevice* pDevice = null;
+            OniCAPI.oniDeviceOpen(null, &pDevice).ThrowExectionIfStatusIsNotOk();
+            return new Device(pDevice);
+        }
+
+        public static Device Open(string uri)
         {
             _OniDevice* pDevice = null;
             byte[] bUri = Encoding.ASCII.GetBytes(uri);
             fixed (byte* pUri = bUri)
             {
-                OniCAPI.oniDeviceOpen((byte*)pUri, &pDevice).ThrowExectionIfStatusIsNotOk();
+                OniCAPI.oniDeviceOpen(pUri, &pDevice).ThrowExectionIfStatusIsNotOk();
             }
             return new Device(pDevice);
         }
 
         public DeviceInfo GetDeviceInfo()
         {
-            OniDeviceInfo oniDeviceInfo = new OniDeviceInfo();
+            var oniDeviceInfo = new OniDeviceInfo();
             OniCAPI.oniDeviceGetInfo(_pDevice, &oniDeviceInfo).ThrowExectionIfStatusIsNotOk();
             DeviceInfo deviceInfo = oniDeviceInfo.ToManaged();
             return deviceInfo;
@@ -35,7 +41,7 @@ namespace OpenNI2
         {
             OniSensorInfo* pOniSensorInfo = OniCAPI.oniDeviceGetSensorInfo(_pDevice, sensorType.ToNative());
             if (pOniSensorInfo == null)
-                return new SensorInfo{ SensorType = sensorType };
+                return new SensorInfo {SensorType = sensorType};
 
             OniSensorInfo oniSensorInfo = *pOniSensorInfo;
             SensorInfo sensorInfo = oniSensorInfo.ToManaged();
