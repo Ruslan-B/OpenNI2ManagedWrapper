@@ -49,7 +49,7 @@ namespace OpenNI2
         ONI_SENSOR_DEPTH = 3,
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniVideoMode
     {
         internal OniPixelFormat pixelFormat;
@@ -58,11 +58,11 @@ namespace OpenNI2
         internal int fps;
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniFrame
     {
         internal int dataSize;
-        internal byte* data;
+        internal void* data;
         internal OniSensorType sensorType;
         internal ulong timestamp;
         internal int frameIndex;
@@ -75,7 +75,7 @@ namespace OpenNI2
         internal int stride;
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniDeviceInfo
     {
         internal fixed byte uri [256];
@@ -85,7 +85,7 @@ namespace OpenNI2
         internal ushort usbProductId;
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniVersion
     {
         internal int major;
@@ -94,7 +94,7 @@ namespace OpenNI2
         internal int build;
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniSensorInfo
     {
         internal OniSensorType sensorType;
@@ -103,12 +103,12 @@ namespace OpenNI2
     }
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    internal unsafe delegate byte OniDeviceInfoCallback (OniDeviceInfo* p0, byte* p1);
+    internal unsafe delegate void OniDeviceInfoCallback (OniDeviceInfo* p0, void* p1);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    internal unsafe delegate byte OniDeviceStateCallback (OniDeviceInfo* p0, OniDeviceState p1, byte* p2);
+    internal unsafe delegate void OniDeviceStateCallback (OniDeviceInfo* p0, OniDeviceState p1, void* p2);
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniDeviceCallbacks
     {
         internal OniDeviceInfoCallback deviceConnected;
@@ -116,7 +116,7 @@ namespace OpenNI2
         internal OniDeviceStateCallback deviceStateChanged;
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniCropping
     {
         internal int enabled;
@@ -126,7 +126,7 @@ namespace OpenNI2
         internal int height;
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniYUV422DoublePixel
     {
         internal byte u;
@@ -135,12 +135,12 @@ namespace OpenNI2
         internal byte y2;
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct _OniRecorder
     {
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniRGB888Pixel
     {
         internal byte r;
@@ -148,39 +148,39 @@ namespace OpenNI2
         internal byte b;
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct _OniStream
     {
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniSeek
     {
         internal int frameIndex;
         internal _OniStream* stream;
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct OniCallbackHandleImpl
     {
     }
     
-    [StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
     internal unsafe struct _OniDevice
     {
     }
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    internal unsafe delegate byte* OniFrameAllocBufferCallback (int p0, byte* p1);
+    internal unsafe delegate void* OniFrameAllocBufferCallback (int p0, void* p1);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    internal unsafe delegate byte OniFrameFreeBufferCallback (byte* p0, byte* p1);
+    internal unsafe delegate void OniFrameFreeBufferCallback (void* p0, void* p1);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    internal unsafe delegate byte OniNewFrameCallback (_OniStream* p0, byte* p1);
+    internal unsafe delegate void OniNewFrameCallback (_OniStream* p0, void* p1);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    internal unsafe delegate byte OniGeneralCallback (byte* p0);
+    internal unsafe delegate void OniGeneralCallback (void* p0);
     
     internal static unsafe class OniCAPI
     {
@@ -213,13 +213,13 @@ namespace OpenNI2
         internal const int ONI_STREAM_PROPERTY_GAIN = 103;
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern byte oniStreamStop(_OniStream* stream);
+        internal static extern void oniStreamStop(_OniStream* stream);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern OniStatus oniDeviceEnableDepthColorSync(_OniDevice* device);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern OniStatus oniStreamSetFrameBuffersAllocator(_OniStream* stream, OniFrameAllocBufferCallback alloc, OniFrameFreeBufferCallback free, byte* pCookie);
+        internal static extern OniStatus oniStreamSetFrameBuffersAllocator(_OniStream* stream, OniFrameAllocBufferCallback alloc, OniFrameFreeBufferCallback free, void* pCookie);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern int oniDeviceIsImageRegistrationModeSupported(_OniDevice* device, OniImageRegistrationMode mode);
@@ -231,10 +231,10 @@ namespace OpenNI2
         internal static extern OniStatus oniGetDeviceList(OniDeviceInfo** pDevices, int* pNumDevices);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern byte oniShutdown();
+        internal static extern void oniShutdown();
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern byte oniFrameAddRef(OniFrame* pFrame);
+        internal static extern void oniFrameAddRef(OniFrame* pFrame);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern int oniDeviceIsCommandSupported(_OniDevice* device, int commandId);
@@ -249,16 +249,16 @@ namespace OpenNI2
         internal static extern OniStatus oniReleaseDeviceList(OniDeviceInfo* pDevices);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern OniStatus oniDeviceInvoke(_OniDevice* device, int commandId, byte* data, int dataSize);
+        internal static extern OniStatus oniDeviceInvoke(_OniDevice* device, int commandId, void* data, int dataSize);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern OniStatus oniCoordinateConverterDepthToWorld(_OniStream* depthStream, float depthX, float depthY, float depthZ, float* pWorldX, float* pWorldY, float* pWorldZ);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern byte oniDeviceDisableDepthColorSync(_OniDevice* device);
+        internal static extern void oniDeviceDisableDepthColorSync(_OniDevice* device);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern OniStatus oniStreamSetProperty(_OniStream* stream, int propertyId, byte* data, int dataSize);
+        internal static extern OniStatus oniStreamSetProperty(_OniStream* stream, int propertyId, void* data, int dataSize);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern OniVersion oniGetVersion();
@@ -267,13 +267,13 @@ namespace OpenNI2
         internal static extern OniStatus oniRecorderStart(_OniRecorder* recorder);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern OniStatus oniRegisterDeviceCallbacks(OniDeviceCallbacks pCallbacks, byte* pCookie, OniCallbackHandleImpl** pHandle);
+        internal static extern OniStatus oniRegisterDeviceCallbacks(OniDeviceCallbacks pCallbacks, void* pCookie, OniCallbackHandleImpl** pHandle);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern OniStatus oniSetLogConsoleOutput(int bConsoleOutput);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern OniStatus oniDeviceGetProperty(_OniDevice* device, int propertyId, byte* data, int* pDataSize);
+        internal static extern OniStatus oniDeviceGetProperty(_OniDevice* device, int propertyId, void* data, int* pDataSize);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern int oniStreamIsCommandSupported(_OniStream* stream, int commandId);
@@ -285,13 +285,13 @@ namespace OpenNI2
         internal static extern OniStatus oniSetLogMinSeverity(int nMinSeverity);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern byte oniStreamUnregisterNewFrameCallback(_OniStream* stream, OniCallbackHandleImpl* handle);
+        internal static extern void oniStreamUnregisterNewFrameCallback(_OniStream* stream, OniCallbackHandleImpl* handle);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern OniStatus oniDeviceOpen(byte* uri, _OniDevice** pDevice);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern byte oniFrameRelease(OniFrame* pFrame);
+        internal static extern void oniFrameRelease(OniFrame* pFrame);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern OniStatus oniGetLogFileName(byte* strFileName, int nBufferSize);
@@ -312,10 +312,10 @@ namespace OpenNI2
         internal static extern OniStatus oniStreamReadFrame(_OniStream* stream, OniFrame** pFrame);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern OniStatus oniStreamGetProperty(_OniStream* stream, int propertyId, byte* data, int* pDataSize);
+        internal static extern OniStatus oniStreamGetProperty(_OniStream* stream, int propertyId, void* data, int* pDataSize);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern OniStatus oniDeviceSetProperty(_OniDevice* device, int propertyId, byte* data, int dataSize);
+        internal static extern OniStatus oniDeviceSetProperty(_OniDevice* device, int propertyId, void* data, int dataSize);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern OniStatus oniRecorderDestroy(_OniRecorder** pRecorder);
@@ -330,16 +330,16 @@ namespace OpenNI2
         internal static extern OniStatus oniDeviceClose(_OniDevice* device);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern byte oniUnregisterDeviceCallbacks(OniCallbackHandleImpl* handle);
+        internal static extern void oniUnregisterDeviceCallbacks(OniCallbackHandleImpl* handle);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern byte oniRecorderStop(_OniRecorder* recorder);
+        internal static extern void oniRecorderStop(_OniRecorder* recorder);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern OniStatus oniSetLogFileOutput(int bFileOutput);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern OniStatus oniStreamInvoke(_OniStream* stream, int commandId, byte* data, int dataSize);
+        internal static extern OniStatus oniStreamInvoke(_OniStream* stream, int commandId, void* data, int dataSize);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern int oniFormatBytesPerPixel(OniPixelFormat format);
@@ -354,7 +354,7 @@ namespace OpenNI2
         internal static extern int oniDeviceIsPropertySupported(_OniDevice* device, int propertyId);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern OniStatus oniStreamRegisterNewFrameCallback(_OniStream* stream, OniNewFrameCallback handler, byte* pCookie, OniCallbackHandleImpl** pHandle);
+        internal static extern OniStatus oniStreamRegisterNewFrameCallback(_OniStream* stream, OniNewFrameCallback handler, void* pCookie, OniCallbackHandleImpl** pHandle);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern OniStatus oniDeviceOpenEx(byte* uri, byte* mode, _OniDevice** pDevice);
@@ -369,7 +369,7 @@ namespace OpenNI2
         internal static extern int oniStreamIsPropertySupported(_OniStream* stream, int propertyId);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern byte oniStreamDestroy(_OniStream* stream);
+        internal static extern void oniStreamDestroy(_OniStream* stream);
         
     }
 }

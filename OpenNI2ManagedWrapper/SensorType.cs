@@ -4,6 +4,6 @@ namespace OpenNI2
     {
         Infrared,
         Color,
-        Depth
+        Depth,
     }
 }

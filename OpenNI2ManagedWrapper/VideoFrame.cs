@@ -12,7 +12,7 @@ namespace OpenNI2
         internal VideoFrame(OniFrame* pFrame)
         {
             _pFrame = pFrame;
-            _data = new FrameData(_pFrame->data, _pFrame->dataSize);
+            _data = new FrameData((byte*) _pFrame->data, _pFrame->dataSize);
         }
 
         public FrameData Data

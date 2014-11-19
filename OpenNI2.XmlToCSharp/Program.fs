@@ -110,7 +110,7 @@ type Converter(document : XDocument, writer : IndentedTextWriter) =
             | "double" -> "double"
             | "long double" -> "decimal"
             | "char" -> "byte"
-            | "void" -> "byte"
+            | "void" -> "void"
             | value -> value
         | "CvQualifiedType" ->
             lookupType (getType element) 
@@ -198,7 +198,7 @@ type Converter(document : XDocument, writer : IndentedTextWriter) =
 
         let fields = getStructFields element |> Seq.map (fun x -> fixTypeAndName (evalElementTypeName x) (getName x))
 
-        writer.WriteLine "[StructLayout(LayoutKind.Sequential, Pack=1, CharSet=CharSet.Ansi)]"
+        writer.WriteLine "[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]"
         writer.WriteLine (sprintf "internal unsafe struct %s" typeName)
         beginBlock()
         fields |> Seq.iter writer.WriteLine
