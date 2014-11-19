@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>OpenNI2.ExampleApp</RootNamespace>
     <AssemblyName>OpenNI2ManagedWrapper.ExampleApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">

@@ -39,7 +39,7 @@ namespace OpenNI2.ExampleApp
                 DescribeSensor(depthSensorInfo);
                 Console.WriteLine();
 
-                using (VideoStream stream = device.CreateStream(SensorType.Infrared))
+                using (VideoStream stream = device.CreateStream(SensorType.Depth))
                 {
                     SensorInfo streamSensorInfo = stream.GetSensorInfo();
                     DescribeVideoModes(streamSensorInfo);

@@ -8,7 +8,7 @@
     <RootNamespace>OpenNI2.XmlToCSharp</RootNamespace>
     <AssemblyName>OpenNI2.XmlToCSharp</AssemblyName>
     <TargetFrameworkProfile />
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug</OutputPath>
