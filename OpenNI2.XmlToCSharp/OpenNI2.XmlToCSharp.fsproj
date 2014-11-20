@@ -24,6 +24,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OniCAPI.xml" />
+    <None Include="PS1080.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
