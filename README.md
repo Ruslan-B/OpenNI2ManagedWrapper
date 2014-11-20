@@ -1,15 +1,25 @@
-OpenNI2 managed wrapper for .NET
+OpenNI2 managed wrapper for .NET/Mono
 ================================
 
-Based on https://github.com/occipital/openni2
+Based on OpenNI2 version from Occipital. 
+https://github.com/occipital/openni2
 
-Native types has been auto generated with help of gccxml(https://github.com/gccxml/gccxml).
-Using OniCAPI.h include file as the entry point.
 
-TODO:
+##Goal
+Provide near native api support for PS1080 sensor from Occipital.
+http://structure.io
 
-API methods to cover:
 
+##Impementation details
+Internaly wrapper using auto generated unmanaged OpenNI CAPI. 
+```OpenNI2.XmlToCSharp``` project transforms XML to C#. 
+Original CAPI definitions compiled to XML by (gccxml)[https://github.com/gccxml/gccxml].
+
+
+##Work in progress:
+- PS1080 specific properties support.
+- API methods to cover:
+```csharp
 // device
 internal static extern int oniDeviceIsCommandSupported(_OniDevice* device, int commandId);
 internal static extern OniStatus oniDeviceInvoke(_OniDevice* device, int commandId, byte* data, int dataSize);
@@ -69,3 +79,4 @@ internal static extern int oniFormatBytesPerPixel(OniPixelFormat format);
 
 internal static extern OniStatus oniRegisterDeviceCallbacks(OniDeviceCallbacks pCallbacks, byte* pCookie, OniCallbackHandleImpl** pHandle);
 internal static extern byte oniUnregisterDeviceCallbacks(OniCallbackHandleImpl* handle);
+```
