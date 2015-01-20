@@ -50,6 +50,12 @@
     <Compile Include="SensorStream.cs" />
     <Compile Include="CoordinateConverter.cs" />
     <Compile Include="SensorFrame.cs" />
+    <Compile Include="SensorStream.properties.cs" />
+    <Compile Include="VideoModeExtensions.cs" />
+    <Compile Include="SensorTypeExtensions.cs" />
+    <Compile Include="Device.properties.cs" />
+    <Compile Include="OpenNIVersion.cs" />
+    <Compile Include="OpenNIVersionExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

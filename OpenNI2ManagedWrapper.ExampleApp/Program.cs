@@ -12,20 +12,31 @@ namespace OpenNI2.ExampleApp
             InteropHelper.RegisterLibrariesSearchPath(Settings.Default.OpenNIPathOnWindows);
 
             Console.WriteLine("Runnung in {0}-bit mode.", Environment.Is64BitProcess ? "64" : "32");
-            Console.WriteLine();
 
             OpenNI.Initialize();
+
+            OpenNIVersion openNIVersion = OpenNI.GetVersion();
+            Console.WriteLine("OpenNI version: {0}.{1}.{2}.{3}.", openNIVersion.Major, openNIVersion.Minor, openNIVersion.Maintenance, openNIVersion.Build);
+            Console.WriteLine();
 
             DeviceInfo[] devices = OpenNI.GetDevices();
             Console.WriteLine("Found {0} device(s):", devices.Length);
             devices.ToList().ForEach(x => Console.WriteLine("{0} from {1} @ {2} with usb id {3}:{4}.", x.Name, x.Vendor, x.Uri, x.UsbVendorId, x.UsbProductId));
             Console.WriteLine();
 
+            // open default device
             using (Device device = Device.Open())
             {
                 DeviceInfo deviceInfo = device.GetDeviceInfo();
                 Console.WriteLine("Device {0} @ {1} was successfully opened.", deviceInfo.Name, deviceInfo.Uri);
                 Console.WriteLine();
+
+                OpenNIVersion driverVersion = device.DriverVersion;
+                Console.WriteLine("Driver version: {0}.{1}.{2}.{3}.", driverVersion.Major, driverVersion.Minor, driverVersion.Maintenance, driverVersion.Build);
+                Console.WriteLine("Hardware version: {0}.", device.HardwareVersion);
+                Console.WriteLine("Serial number: {0}.", device.SerialNumber);
+                Console.WriteLine();
+
 
                 SensorInfo infraredSensorInfo = device.GetSensorInfo(SensorType.Infrared);
                 DescribeSensor(infraredSensorInfo);
@@ -45,7 +56,22 @@ namespace OpenNI2.ExampleApp
                     DescribeVideoModes(streamSensorInfo);
                     Console.WriteLine();
 
+                    Console.WriteLine("Stream properties:");
+                    float rtdK = (float)(180.0 / Math.PI );
+                    Console.WriteLine("Horizontal {0:0.0} and vertical {1:0.0} FOV.",  stream.HorizontalFov * rtdK, stream.VerticalFov * rtdK);
+                    Console.WriteLine("Min {0} and max {1} values.", stream.MinValue, stream.MaxValue);
+
+                    //stream.VideoMode = new VideoMode
+                    //{ 
+                    //    PixelFormat = PixelFormat.Depth1MM, 
+                    //    ResolutionX = 640, 
+                    //    ResolutionY = 480, 
+                    //    Fps = 30
+                    //};
+
                     stream.Start();
+
+
 
                     using (SensorFrame frame = stream.ReadFrame())
                     using (Stream dataStream = frame.Data.CreateStream())

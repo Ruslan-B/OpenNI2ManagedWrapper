@@ -24,6 +24,11 @@ namespace OpenNI2
             OniCAPI.oniShutdown();
         }
 
+        public static OpenNIVersion GetVersion()
+        {
+            return OniCAPI.oniGetVersion().ToManaged();
+        }
+
         public static unsafe DeviceInfo[] GetDevices()
         {
             OniDeviceInfo* pDevices = null;

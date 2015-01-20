@@ -2,12 +2,13 @@ namespace OpenNI2
 {
     public struct VideoMode
     {
-        public PixelFormat PixelFormat { get; internal set; }
+        public PixelFormat PixelFormat;
 
-        public int ResolutionX { get; internal set; }
+        public int ResolutionX;
 
-        public int ResolutionY { get; internal set; }
+        public int ResolutionY;
 
-        public int Fps { get; internal set; }
+        public int Fps;
     }
+
 }

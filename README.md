@@ -13,34 +13,20 @@ http://structure.io
 ##Impementation details
 Internaly wrapper using auto generated unmanaged OpenNI CAPI. 
 ```OpenNI2.XmlToCSharp``` project transforms XML to C#. 
-Original CAPI definitions compiled to XML by (gccxml)[https://github.com/gccxml/gccxml].
+Original CAPI definitions compiled/generated to XML by (gccxml)[https://github.com/gccxml/gccxml].
 
 
 ##Work in progress:
-- PS1080 specific properties support.
+- PS1080 specific properties support;
+- Device ONI_DEVICE_PROPERTY_IMAGE_REGISTRATION property support;
+- SensorStream ONI_STREAM_PROPERTY_CROPPING property support;
 - API methods to cover:
 ```csharp
 // device
-internal static extern int oniDeviceIsCommandSupported(_OniDevice* device, int commandId);
-internal static extern OniStatus oniDeviceInvoke(_OniDevice* device, int commandId, byte* data, int dataSize);
-
-internal static extern int oniDeviceIsPropertySupported(_OniDevice* device, int propertyId);
-internal static extern OniStatus oniDeviceGetProperty(_OniDevice* device, int propertyId, byte* data, int* pDataSize);
-internal static extern OniStatus oniDeviceSetProperty(_OniDevice* device, int propertyId, byte* data, int dataSize);
-
-internal static extern OniStatus oniDeviceEnableDepthColorSync(_OniDevice* device);
-internal static extern int oniDeviceGetDepthColorSyncEnabled(_OniDevice* device);
-internal static extern byte oniDeviceDisableDepthColorSync(_OniDevice* device);
 
 internal static extern int oniDeviceIsImageRegistrationModeSupported(_OniDevice* device, OniImageRegistrationMode mode);
-???internal static extern OniStatus oniDeviceOpenEx(byte* uri, byte* mode, _OniDevice** pDevice);
-
 
 // stream
-internal static extern int oniStreamIsPropertySupported(_OniStream* stream, int propertyId);
-internal static extern OniStatus oniStreamSetProperty(_OniStream* stream, int propertyId, byte* data, int dataSize);
-internal static extern OniStatus oniStreamGetProperty(_OniStream* stream, int propertyId, byte* data, int* pDataSize);
-
 internal static extern int oniStreamIsCommandSupported(_OniStream* stream, int commandId);
 internal static extern OniStatus oniStreamInvoke(_OniStream* stream, int commandId, byte* data, int dataSize);
 
@@ -54,7 +40,6 @@ internal static extern OniStatus oniWaitForAnyStream(_OniStream** pStreams, int 
 ???internal static extern byte oniFrameAddRef(OniFrame* pFrame);
 ???internal static extern byte oniFrameRelease(OniFrame* pFrame);
 
-
 // recorder
 internal static extern OniStatus oniCreateRecorder(byte* fileName, _OniRecorder** pRecorder);
 internal static extern OniStatus oniRecorderStart(_OniRecorder* recorder);
@@ -63,7 +48,6 @@ internal static extern OniStatus oniRecorderDestroy(_OniRecorder** pRecorder);
 internal static extern byte oniRecorderStop(_OniRecorder* recorder);
 
 // generic
-internal static extern OniVersion oniGetVersion();
 internal static extern OniStatus oniSetLogMinSeverity(int nMinSeverity);
 internal static extern OniStatus oniSetLogConsoleOutput(int bConsoleOutput);
 internal static extern OniStatus oniGetLogFileName(byte* strFileName, int nBufferSize);

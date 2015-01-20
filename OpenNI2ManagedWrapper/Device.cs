@@ -1,8 +1,12 @@
-﻿using System.Text;
+﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace OpenNI2
 {
-    public unsafe class Device : DisposableBase
+
+    public unsafe partial class Device : DisposableBase
     {
         private readonly _OniDevice* _pDevice;
 
@@ -20,13 +24,34 @@ namespace OpenNI2
 
         public static Device Open(string uri)
         {
-            _OniDevice* pDevice = null;
-            byte[] bUri = Encoding.ASCII.GetBytes(uri);
-            fixed (byte* pUri = bUri)
+            IntPtr pUri = Marshal.StringToHGlobalAnsi(uri);
+            try
             {
-                OniCAPI.oniDeviceOpen(pUri, &pDevice).ThrowExectionIfStatusIsNotOk();
+                _OniDevice* pDevice = null;
+                OniCAPI.oniDeviceOpen((byte*)pUri, &pDevice).ThrowExectionIfStatusIsNotOk();
+                return new Device(pDevice);
             }
-            return new Device(pDevice);
+            finally
+            {
+                Marshal.FreeHGlobal(pUri);
+            }
+        }
+
+        internal static Device Open(string uri, string mode)
+        {
+            IntPtr pUri = Marshal.StringToHGlobalAnsi(uri);
+            IntPtr pMode = Marshal.StringToHGlobalAnsi(mode);
+            try
+            {
+                _OniDevice* pDevice = null;
+                OniCAPI.oniDeviceOpenEx((byte*)pUri, (byte*)pMode, &pDevice).ThrowExectionIfStatusIsNotOk();
+                return new Device(pDevice);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(pUri);
+                Marshal.FreeHGlobal(pMode);
+            }
         }
 
         public DeviceInfo GetDeviceInfo()
@@ -59,6 +84,67 @@ namespace OpenNI2
             OniCAPI.oniDeviceCreateStream(_pDevice, sensorType.ToNative(), &pStream).ThrowExectionIfStatusIsNotOk();
 
             return new SensorStream(pStream);
+        }
+        public bool IsPropertySupported(int propertyId)
+        {
+            return OniCAPI.oniDeviceIsPropertySupported(_pDevice, propertyId) == 1;
+        }
+
+        public T GetProperty<T>(int propertyId) where T : struct
+        {
+            int dataSize = Marshal.SizeOf(typeof(T));
+
+            IntPtr pData = Marshal.AllocHGlobal(dataSize);
+            try
+            {
+                OniCAPI.oniDeviceGetProperty(_pDevice, propertyId, (void*)pData, &dataSize).ThrowExectionIfStatusIsNotOk();
+
+                Debug.Assert(dataSize == Marshal.SizeOf(typeof(T)), "dataSize == Marshal.SizeOf(typeof(T))");
+
+                var value = (T)Marshal.PtrToStructure(pData, typeof(T));
+                return value;
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(pData);
+            }
+        }
+
+        public void SetProperty<T>(int propertyId, T value) where T : struct
+        {
+            int dataSize = Marshal.SizeOf(typeof(T));
+
+            IntPtr pData = Marshal.AllocHGlobal(Marshal.SizeOf(dataSize));
+            try
+            {
+                Marshal.StructureToPtr(value, pData, false);
+                OniCAPI.oniDeviceSetProperty(_pDevice, propertyId, (void*)pData, dataSize).ThrowExectionIfStatusIsNotOk();
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(pData);
+            }
+        }
+
+        public bool IsCommandSupported(int commandId)
+        {
+            return OniCAPI.oniDeviceIsCommandSupported(_pDevice, commandId) == 1;
+        }
+
+        public void Invoke<T>(int commandId, T command) where T : struct
+        {
+            int dataSize = Marshal.SizeOf(typeof(T));
+
+            IntPtr pData = Marshal.AllocHGlobal(Marshal.SizeOf(dataSize));
+            try
+            {
+                Marshal.StructureToPtr(command, pData, false);
+                OniCAPI.oniDeviceInvoke(_pDevice, commandId, (void*)pData, dataSize).ThrowExectionIfStatusIsNotOk();
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(pData);
+            }
         }
 
         protected override void Dispose(bool disposing)
