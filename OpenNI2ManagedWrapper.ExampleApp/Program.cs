@@ -39,7 +39,7 @@ namespace OpenNI2.ExampleApp
                 DescribeSensor(depthSensorInfo);
                 Console.WriteLine();
 
-                using (VideoStream stream = device.CreateStream(SensorType.Depth))
+                using (SensorStream stream = device.CreateStream(SensorType.Depth))
                 {
                     SensorInfo streamSensorInfo = stream.GetSensorInfo();
                     DescribeVideoModes(streamSensorInfo);
@@ -47,7 +47,7 @@ namespace OpenNI2.ExampleApp
 
                     stream.Start();
 
-                    using (VideoFrame frame = stream.ReadFrame())
+                    using (SensorFrame frame = stream.ReadFrame())
                     using (Stream dataStream = frame.Data.CreateStream())
                     using (Stream fileStream = File.Open("frame.data", FileMode.Create))
                     {
@@ -84,12 +84,15 @@ namespace OpenNI2.ExampleApp
             }
         }
 
-        public static void DescribeFrame(VideoFrame frame)
+        public static void DescribeFrame(SensorFrame frame)
         {
             Console.WriteLine("Sensor type: {0}", frame.SensorType);
             Console.WriteLine("Timestamp: {0}", frame.Timestamp);
             Console.WriteLine("Index: {0}", frame.FrameIndex);
-            Console.WriteLine("Video Mode: {0} {1}x{2} @ {3} fps.", frame.VideoMode.PixelFormat, frame.VideoMode.ResolutionX, frame.VideoMode.ResolutionY,
+            Console.WriteLine("Video Mode: {0}, {1} byte(s) pps, {2}x{3} @ {4} fps.", 
+                frame.VideoMode.PixelFormat, 
+                frame.VideoMode.PixelFormat.BytesPerPixel(),
+                frame.VideoMode.ResolutionX, frame.VideoMode.ResolutionY,
                 frame.VideoMode.Fps);
             Console.WriteLine("Clipping: {0}", frame.CroppingEnabled);
             Console.WriteLine("Crop: x - {0}, y - {1}", frame.CropOriginX, frame.CropOriginY);

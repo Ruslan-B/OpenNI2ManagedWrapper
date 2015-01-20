@@ -46,8 +46,10 @@
     <Compile Include="PixelFormat.cs" />
     <Compile Include="VideoMode.cs" />
     <Compile Include="OniCAPI.generated.cs" />
-    <Compile Include="VideoFrame.cs" />
-    <Compile Include="VideoStream.cs" />
+    <Compile Include="PixelFormatExtensions.cs" />
+    <Compile Include="SensorStream.cs" />
+    <Compile Include="CoordinateConverter.cs" />
+    <Compile Include="SensorFrame.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

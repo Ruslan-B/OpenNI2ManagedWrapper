@@ -53,12 +53,12 @@ namespace OpenNI2
             return OniCAPI.oniDeviceGetSensorInfo(_pDevice, sensorType.ToNative()) != null;
         }
 
-        public VideoStream CreateStream(SensorType sensorType)
+        public SensorStream CreateStream(SensorType sensorType)
         {
             _OniStream* pStream = null;
             OniCAPI.oniDeviceCreateStream(_pDevice, sensorType.ToNative(), &pStream).ThrowExectionIfStatusIsNotOk();
 
-            return new VideoStream(pStream);
+            return new SensorStream(pStream);
         }
 
         protected override void Dispose(bool disposing)

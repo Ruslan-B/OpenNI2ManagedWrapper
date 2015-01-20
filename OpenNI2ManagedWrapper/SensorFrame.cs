@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 
 namespace OpenNI2
 {
-    public unsafe class VideoFrame : DisposableBase
+    public unsafe class SensorFrame : DisposableBase
     {
         private readonly OniFrame* _pFrame;
         private readonly FrameData _data;
 
-        internal VideoFrame(OniFrame* pFrame)
+        internal SensorFrame(OniFrame* pFrame)
         {
             _pFrame = pFrame;
             _data = new FrameData((byte*) _pFrame->data, _pFrame->dataSize);

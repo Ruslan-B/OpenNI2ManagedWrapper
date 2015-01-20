@@ -83,6 +83,35 @@ namespace OpenNI2
             }
         }
 
+        internal static OniPixelFormat ToNative(this PixelFormat pixelFormat)
+        {
+            switch (pixelFormat)
+            {
+                case PixelFormat.Depth1MM:
+                    return OniPixelFormat.ONI_PIXEL_FORMAT_DEPTH_1_MM;
+                case PixelFormat.Depth100UM:
+                    return OniPixelFormat.ONI_PIXEL_FORMAT_DEPTH_100_UM;
+                case PixelFormat.Shift92:
+                    return OniPixelFormat.ONI_PIXEL_FORMAT_SHIFT_9_2;
+                case PixelFormat.Shift93:
+                    return OniPixelFormat.ONI_PIXEL_FORMAT_SHIFT_9_3;
+                case PixelFormat.Rgb888:
+                    return OniPixelFormat.ONI_PIXEL_FORMAT_RGB888;
+                case PixelFormat.Yuv422:
+                    return OniPixelFormat.ONI_PIXEL_FORMAT_YUV422;
+                case PixelFormat.Gray8:
+                    return OniPixelFormat.ONI_PIXEL_FORMAT_GRAY8;
+                case PixelFormat.Gray16:
+                    return OniPixelFormat.ONI_PIXEL_FORMAT_GRAY16;
+                case PixelFormat.Jpeg:
+                    return OniPixelFormat.ONI_PIXEL_FORMAT_JPEG;
+                case PixelFormat.Yuyv:
+                    return OniPixelFormat.ONI_PIXEL_FORMAT_YUYV;
+                default:
+                    throw new ArgumentOutOfRangeException("pixelFormat");
+            }
+        }
+
         internal static VideoMode ToManaged(this OniVideoMode oniVideoMode)
         {
             return new VideoMode

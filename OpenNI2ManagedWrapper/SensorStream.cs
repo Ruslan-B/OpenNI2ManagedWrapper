@@ -1,10 +1,10 @@
 namespace OpenNI2
 {
-    public unsafe class VideoStream : DisposableBase
+    public unsafe class SensorStream : DisposableBase
     {
-        private readonly _OniStream* _pStream;
+        internal readonly _OniStream* _pStream;
 
-        internal VideoStream(_OniStream* pStream)
+        internal SensorStream(_OniStream* pStream)
         {
             _pStream = pStream;
         }
@@ -27,13 +27,13 @@ namespace OpenNI2
             OniCAPI.oniStreamStop(_pStream);
         }
 
-        public VideoFrame ReadFrame()
+        public SensorFrame ReadFrame()
         {
             OniFrame* pFrame = null;
             OniCAPI.oniStreamReadFrame(_pStream, &pFrame).ThrowExectionIfStatusIsNotOk();
-            return new VideoFrame(pFrame);
+            return new SensorFrame(pFrame);
         }
-
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing == false)

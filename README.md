@@ -44,10 +44,6 @@ internal static extern OniStatus oniStreamGetProperty(_OniStream* stream, int pr
 internal static extern int oniStreamIsCommandSupported(_OniStream* stream, int commandId);
 internal static extern OniStatus oniStreamInvoke(_OniStream* stream, int commandId, byte* data, int dataSize);
 
-internal static extern OniStatus oniCoordinateConverterDepthToWorld(_OniStream* depthStream, float depthX, float depthY, float depthZ, float* pWorldX, float* pWorldY, float* pWorldZ);
-internal static extern OniStatus oniCoordinateConverterDepthToColor(_OniStream* depthStream, _OniStream* colorStream, int depthX, int depthY, ushort depthZ, int* pColorX, int* pColorY);
-internal static extern OniStatus oniCoordinateConverterWorldToDepth(_OniStream* depthStream, float worldX, float worldY, float worldZ, float* pDepthX, float* pDepthY, float* pDepthZ);
-
 internal static extern OniStatus oniStreamRegisterNewFrameCallback(_OniStream* stream, OniNewFrameCallback handler, byte* pCookie, OniCallbackHandleImpl** pHandle);
 internal static extern byte oniStreamUnregisterNewFrameCallback(_OniStream* stream, OniCallbackHandleImpl* handle);
 internal static extern OniStatus oniStreamSetFrameBuffersAllocator(_OniStream* stream, OniFrameAllocBufferCallback alloc, OniFrameFreeBufferCallback free, byte* pCookie);
@@ -74,9 +70,7 @@ internal static extern OniStatus oniGetLogFileName(byte* strFileName, int nBuffe
 internal static extern OniStatus oniSetLogOutputFolder(byte* strOutputFolder);
 internal static extern OniStatus oniSetLogFileOutput(int bFileOutput);
 
-// pixel format
-internal static extern int oniFormatBytesPerPixel(OniPixelFormat format);
-
+// callbacks
 internal static extern OniStatus oniRegisterDeviceCallbacks(OniDeviceCallbacks pCallbacks, byte* pCookie, OniCallbackHandleImpl** pHandle);
 internal static extern byte oniUnregisterDeviceCallbacks(OniCallbackHandleImpl* handle);
 ```
