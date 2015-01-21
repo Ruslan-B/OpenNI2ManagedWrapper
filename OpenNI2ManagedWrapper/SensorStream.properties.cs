@@ -10,8 +10,11 @@ namespace OpenNI2
         {
             get { return IsPropertySupported(OniCAPI.ONI_STREAM_PROPERTY_HORIZONTAL_FOV); }
         }
-
-        //todo internal const int ONI_STREAM_PROPERTY_CROPPING (OniCropping*)
+        public Cropping Cropping 
+        {
+            get { return GetProperty<OniCropping>(OniCAPI.ONI_STREAM_PROPERTY_CROPPING).ToManaged(); }
+            set { SetProperty<OniCropping>(OniCAPI.ONI_STREAM_PROPERTY_CROPPING, value.ToNative()); }
+        }
 
         public bool IsHorizontalFovPropertySupported
         {

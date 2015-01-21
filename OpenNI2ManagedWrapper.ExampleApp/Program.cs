@@ -43,7 +43,6 @@ namespace OpenNI2.ExampleApp
                 Console.WriteLine("Serial number: {0}.", device.SerialNumber);
                 Console.WriteLine();
 
-
                 SensorInfo infraredSensorInfo = device.GetSensorInfo(SensorType.Infrared);
                 DescribeSensor(infraredSensorInfo);
                 Console.WriteLine();
@@ -67,17 +66,15 @@ namespace OpenNI2.ExampleApp
                     Console.WriteLine("Horizontal {0:0.0} and vertical {1:0.0} FOV.",  stream.HorizontalFov * rtdK, stream.VerticalFov * rtdK);
                     Console.WriteLine("Min {0} and max {1} values.", stream.MinValue, stream.MaxValue);
 
-                    //stream.VideoMode = new VideoMode
-                    //{ 
-                    //    PixelFormat = PixelFormat.Depth1MM, 
-                    //    ResolutionX = 640, 
-                    //    ResolutionY = 480, 
-                    //    Fps = 30
-                    //};
+                    stream.VideoMode = new VideoMode
+                    { 
+                        PixelFormat = PixelFormat.Depth1MM, 
+                        ResolutionX = 640, 
+                        ResolutionY = 480, 
+                        Fps = 30
+                    };
 
                     stream.Start();
-
-
 
                     using (SensorFrame frame = stream.ReadFrame())
                     using (Stream dataStream = frame.Data.CreateStream())

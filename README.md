@@ -18,7 +18,6 @@ Original CAPI definitions compiled/generated to XML by (gccxml)[https://github.c
 
 ##Work in progress:
 - PS1080 specific properties support;
-- SensorStream ONI_STREAM_PROPERTY_CROPPING property support;
 - API methods to cover:
 ```csharp
 
