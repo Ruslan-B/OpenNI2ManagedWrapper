@@ -57,6 +57,8 @@
     <Compile Include="OpenNIVersion.cs" />
     <Compile Include="OpenNIVersionExtensions.cs" />
     <Compile Include="Recorder.cs" />
+    <Compile Include="ImageRegistrationMode.cs" />
+    <Compile Include="ImageRegistrationModeExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

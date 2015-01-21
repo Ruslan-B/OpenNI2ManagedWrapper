@@ -54,10 +54,14 @@ namespace OpenNI2
 
         public bool IsImageRegistrationPropertySupported
         {
-            get { return IsPropertySupported(OniCAPI.ONI_DEVICE_PROPERTY_SERIAL_NUMBER); }
+            get { return IsPropertySupported(OniCAPI.ONI_DEVICE_PROPERTY_IMAGE_REGISTRATION); }
         }
 
-        // todo ONI_DEVICE_PROPERTY_IMAGE_REGISTRATION (OniImageRegistrationMode)
+        public ImageRegistrationMode ImageRegistration
+        {
+            get { return GetProperty<OniImageRegistrationMode>(OniCAPI.ONI_DEVICE_PROPERTY_IMAGE_REGISTRATION).ToManaged(); }
+            set { SetProperty<OniImageRegistrationMode>(OniCAPI.ONI_DEVICE_PROPERTY_IMAGE_REGISTRATION, value.ToNative()); }
+        }
 
         public unsafe bool DepthColorSync
         {

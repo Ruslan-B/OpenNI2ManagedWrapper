@@ -147,6 +147,11 @@ namespace OpenNI2
             }
         }
 
+        public bool IsImageRegistrationModeSupported(ImageRegistrationMode mode)
+        {
+            return OniCAPI.oniDeviceIsImageRegistrationModeSupported(_pDevice, mode.ToNative()) == 1;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing == false)
