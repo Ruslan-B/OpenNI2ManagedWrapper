@@ -36,7 +36,8 @@ namespace OpenNI2
         {
             get 
             {
-                int dataSize = 256;
+                const int MAX_STRING_LENGTH = 200;
+                int dataSize = MAX_STRING_LENGTH;
                 IntPtr pData = Marshal.AllocHGlobal(dataSize);
                 try
                 {

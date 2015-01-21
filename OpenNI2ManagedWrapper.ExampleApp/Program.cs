@@ -15,9 +15,15 @@ namespace OpenNI2.ExampleApp
 
             OpenNI.Initialize();
 
+
             OpenNIVersion openNIVersion = OpenNI.GetVersion();
             Console.WriteLine("OpenNI version: {0}.{1}.{2}.{3}.", openNIVersion.Major, openNIVersion.Minor, openNIVersion.Maintenance, openNIVersion.Build);
             Console.WriteLine();
+
+            OpenNI.SetLogMinSeverity(3);
+            OpenNI.SetLogConsoleOutput(true);
+            //OpenNI.SetLogFileOutput(true);   
+            //Console.WriteLine("Log file path: {0}", OpenNI.GetLogFileName());
 
             DeviceInfo[] devices = OpenNI.GetDevices();
             Console.WriteLine("Found {0} device(s):", devices.Length);

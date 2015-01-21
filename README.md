@@ -44,13 +44,6 @@ internal static extern OniStatus oniRecorderAttachStream(_OniRecorder* recorder,
 internal static extern OniStatus oniRecorderDestroy(_OniRecorder** pRecorder);
 internal static extern byte oniRecorderStop(_OniRecorder* recorder);
 
-// generic
-internal static extern OniStatus oniSetLogMinSeverity(int nMinSeverity);
-internal static extern OniStatus oniSetLogConsoleOutput(int bConsoleOutput);
-internal static extern OniStatus oniGetLogFileName(byte* strFileName, int nBufferSize);
-internal static extern OniStatus oniSetLogOutputFolder(byte* strOutputFolder);
-internal static extern OniStatus oniSetLogFileOutput(int bFileOutput);
-
 // callbacks
 internal static extern OniStatus oniRegisterDeviceCallbacks(OniDeviceCallbacks pCallbacks, byte* pCookie, OniCallbackHandleImpl** pHandle);
 internal static extern byte oniUnregisterDeviceCallbacks(OniCallbackHandleImpl* handle);

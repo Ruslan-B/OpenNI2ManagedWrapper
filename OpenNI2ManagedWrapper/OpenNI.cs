@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace OpenNI2
 {
@@ -47,6 +48,50 @@ namespace OpenNI2
             OniCAPI.oniReleaseDeviceList(pDevices).ThrowExectionIfStatusIsNotOk();
 
             return devices;
+        }
+
+        public static void SetLogMinSeverity(int minSeverity) 
+        {
+            OniCAPI.oniSetLogMinSeverity(minSeverity).ThrowExectionIfStatusIsNotOk();
+        }
+
+        public static void SetLogConsoleOutput(bool consoleOutput) 
+        {
+            OniCAPI.oniSetLogConsoleOutput(consoleOutput ? 1 : 0).ThrowExectionIfStatusIsNotOk();
+        }
+
+        public static void SetLogFileOutput(bool fileOutput) 
+        {
+            OniCAPI.oniSetLogFileOutput(fileOutput ? 1 : 0).ThrowExectionIfStatusIsNotOk();
+        }
+
+        public static unsafe void SetLogOutputFolder(string outputFolder)
+        {
+            IntPtr pOutputFolder = Marshal.StringToHGlobalAnsi(outputFolder);
+            try
+            {
+                OniCAPI.oniSetLogOutputFolder((byte*)pOutputFolder).ThrowExectionIfStatusIsNotOk();
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(pOutputFolder);
+            }
+        }
+
+        public static unsafe string GetLogFileName() 
+        {
+            const int MAX_PATH = 260;
+            IntPtr pFileName = Marshal.AllocHGlobal(MAX_PATH);
+            try
+            {
+                OniCAPI.oniGetLogFileName((byte*)pFileName, MAX_PATH).ThrowExectionIfStatusIsNotOk();
+                string fileName = Marshal.PtrToStringAnsi(pFileName);
+                return fileName;
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(pFileName);
+            }
         }
     }
 }
