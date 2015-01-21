@@ -22,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
     <Optimize>false</Optimize>
     <ConsolePause>false</ConsolePause>
-    <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
