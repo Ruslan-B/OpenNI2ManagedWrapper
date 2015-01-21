@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace OpenNI2
@@ -11,6 +13,27 @@ namespace OpenNI2
         internal SensorStream(_OniStream* pStream)
         {
             _pStream = pStream;
+        }
+
+        /// <summary>
+        ///     Wait for a new frame from any of the streams provided. The function blocks until any of the streams
+        /// has a new frame available, or the timeout has passed.
+        /// </summary>
+        /// <param name="streams">An array of streams to wait for.</param>
+        /// <param name="readyStreamIndex">The index of the first stream that has new frame available.</param>
+        /// <param name="timeout">A timeout before returning if no stream has new data. Default value is TIMEOUT_FOREVER.</param>
+        public static void WaitForAnyStream(SensorStream[] streams, out int readyStreamIndex, int timeout = OniCAPI.ONI_TIMEOUT_FOREVER)
+        {
+            if (streams == null) throw new ArgumentNullException("streams");
+            if (streams.Length == 0) throw new ArgumentOutOfRangeException("streams");
+
+            _OniStream*[] pStreams = new _OniStream*[streams.Length];
+
+            for (int i = 0; i < streams.Length; i++) pStreams[i] = streams[i]._pStream;
+
+            fixed(_OniStream** pps = &pStreams[0])
+            fixed(int* pStreamIndex = &readyStreamIndex)
+                OniCAPI.oniWaitForAnyStream(pps, pStreams.Length, pStreamIndex, timeout).ThrowExectionIfStatusIsNotOk();
         }
 
         public SensorInfo GetSensorInfo()

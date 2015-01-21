@@ -18,31 +18,18 @@ Original CAPI definitions compiled/generated to XML by (gccxml)[https://github.c
 
 ##Work in progress:
 - PS1080 specific properties support;
-- Device ONI_DEVICE_PROPERTY_IMAGE_REGISTRATION property support;
 - SensorStream ONI_STREAM_PROPERTY_CROPPING property support;
 - API methods to cover:
 ```csharp
-// device
-
-internal static extern int oniDeviceIsImageRegistrationModeSupported(_OniDevice* device, OniImageRegistrationMode mode);
 
 // stream
 internal static extern OniStatus oniStreamRegisterNewFrameCallback(_OniStream* stream, OniNewFrameCallback handler, byte* pCookie, OniCallbackHandleImpl** pHandle);
 internal static extern byte oniStreamUnregisterNewFrameCallback(_OniStream* stream, OniCallbackHandleImpl* handle);
 internal static extern OniStatus oniStreamSetFrameBuffersAllocator(_OniStream* stream, OniFrameAllocBufferCallback alloc, OniFrameFreeBufferCallback free, byte* pCookie);
 
-internal static extern OniStatus oniWaitForAnyStream(_OniStream** pStreams, int numStreams, int* pStreamIndex, int timeout);
-
 // frame
 ???internal static extern byte oniFrameAddRef(OniFrame* pFrame);
 ???internal static extern byte oniFrameRelease(OniFrame* pFrame);
-
-// recorder
-internal static extern OniStatus oniCreateRecorder(byte* fileName, _OniRecorder** pRecorder);
-internal static extern OniStatus oniRecorderStart(_OniRecorder* recorder);
-internal static extern OniStatus oniRecorderAttachStream(_OniRecorder* recorder, _OniStream* stream, int allowLossyCompression);
-internal static extern OniStatus oniRecorderDestroy(_OniRecorder** pRecorder);
-internal static extern byte oniRecorderStop(_OniRecorder* recorder);
 
 // callbacks
 internal static extern OniStatus oniRegisterDeviceCallbacks(OniDeviceCallbacks pCallbacks, byte* pCookie, OniCallbackHandleImpl** pHandle);
