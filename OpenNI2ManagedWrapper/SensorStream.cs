@@ -79,6 +79,27 @@ namespace OpenNI2
             }
         }
 
+        public bool IsCommandSupported(int commandId)
+        {
+            return OniCAPI.oniStreamIsCommandSupported(_pStream, commandId) == 1;
+        }
+
+        public void Invoke<T>(int commandId, T command) where T : struct
+        {
+            int dataSize = Marshal.SizeOf(typeof(T));
+
+            IntPtr pData = Marshal.AllocHGlobal(Marshal.SizeOf(dataSize));
+            try
+            {
+                Marshal.StructureToPtr(command, pData, false);
+                OniCAPI.oniStreamInvoke(_pStream, commandId, (void*)pData, dataSize).ThrowExectionIfStatusIsNotOk();
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(pData);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing == false)
