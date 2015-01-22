@@ -267,7 +267,7 @@ namespace OpenNI2
         internal static extern OniStatus oniRecorderStart(_OniRecorder* recorder);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-        internal static extern OniStatus oniRegisterDeviceCallbacks(OniDeviceCallbacks pCallbacks, void* pCookie, OniCallbackHandleImpl** pHandle);
+        internal static extern OniStatus oniRegisterDeviceCallbacks(OniDeviceCallbacks* pCallbacks, void* pCookie, OniCallbackHandleImpl** pHandle);
         
         [DllImport(@"OpenNI2", CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         internal static extern OniStatus oniSetLogConsoleOutput(int bConsoleOutput);
