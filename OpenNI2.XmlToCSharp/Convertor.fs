@@ -101,7 +101,7 @@ type Converter(document : XDocument, writer : IndentedTextWriter, dllName : stri
             | "short int" -> "short"
             | "short unsigned int" -> "ushort"
             | "int" | "long int" -> "int"
-            | "unsigned int" | "long unsigned int" -> "unit"
+            | "unsigned int" | "long unsigned int" -> "uint"
             | "long long int" -> "long"
             | "long long unsigned int" -> "ulong"
             | "float" -> "float"

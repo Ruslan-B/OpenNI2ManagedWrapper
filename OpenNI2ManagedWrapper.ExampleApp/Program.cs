@@ -88,24 +88,21 @@ namespace OpenNI2.ExampleApp
                         using (Stream fileStream = File.Open("sensor.frame", FileMode.Create))
                         using (BinaryWriter writer = new BinaryWriter(fileStream))
                         {
-                            if (false)
-                            {
-                                // stream properties
-                                writer.Write(hFov);
-                                writer.Write(vFov);
-                                writer.Write(minValue);
-                                writer.Write(maxValue);
-                                writer.Write(videoMode.PixelFormat.BytesPerPixel());
+                            // stream properties
+                            writer.Write(hFov);
+                            writer.Write(vFov);
+                            writer.Write(minValue);
+                            writer.Write(maxValue);
+                            writer.Write(videoMode.PixelFormat.BytesPerPixel());
 
-                                // frame properties
-                                writer.Write(frame.CroppingEnabled);
-                                writer.Write(frame.CropOriginX);
-                                writer.Write(frame.CropOriginY);
-                                writer.Write(frame.Width);
-                                writer.Write(frame.Height);
-                                writer.Write(frame.Stride);
-                                writer.Write(frame.Data.Size);
-                            }
+                            // frame properties
+                            writer.Write(frame.CroppingEnabled);
+                            writer.Write(frame.CropOriginX);
+                            writer.Write(frame.CropOriginY);
+                            writer.Write(frame.Width);
+                            writer.Write(frame.Height);
+                            writer.Write(frame.Stride);
+                            writer.Write(frame.Data.Size);
 
                             // data
                             using (Stream dataStream = frame.Data.CreateStream())
