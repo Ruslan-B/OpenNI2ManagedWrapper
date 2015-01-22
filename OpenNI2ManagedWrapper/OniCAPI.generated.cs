@@ -49,7 +49,7 @@ namespace OpenNI2
         ONI_SENSOR_DEPTH = 3,
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 4)]
     internal unsafe struct OniVideoMode
     {
         internal OniPixelFormat pixelFormat;
@@ -58,7 +58,7 @@ namespace OpenNI2
         internal int fps;
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 4)]
     internal unsafe struct OniFrame
     {
         internal int dataSize;
@@ -75,7 +75,7 @@ namespace OpenNI2
         internal int stride;
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 2)]
     internal unsafe struct OniDeviceInfo
     {
         internal fixed byte uri [256];
@@ -85,7 +85,7 @@ namespace OpenNI2
         internal ushort usbProductId;
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 4)]
     internal unsafe struct OniVersion
     {
         internal int major;
@@ -94,7 +94,7 @@ namespace OpenNI2
         internal int build;
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 4)]
     internal unsafe struct OniSensorInfo
     {
         internal OniSensorType sensorType;
@@ -108,7 +108,7 @@ namespace OpenNI2
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
     internal unsafe delegate void OniDeviceStateCallback (OniDeviceInfo* p0, OniDeviceState p1, void* p2);
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 4)]
     internal unsafe struct OniDeviceCallbacks
     {
         internal OniDeviceInfoCallback deviceConnected;
@@ -116,7 +116,7 @@ namespace OpenNI2
         internal OniDeviceStateCallback deviceStateChanged;
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 4)]
     internal unsafe struct OniCropping
     {
         internal int enabled;
@@ -126,7 +126,7 @@ namespace OpenNI2
         internal int height;
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 1)]
     internal unsafe struct OniYUV422DoublePixel
     {
         internal byte u;
@@ -135,12 +135,12 @@ namespace OpenNI2
         internal byte y2;
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 1)]
     internal unsafe struct _OniRecorder
     {
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 1)]
     internal unsafe struct OniRGB888Pixel
     {
         internal byte r;
@@ -148,24 +148,24 @@ namespace OpenNI2
         internal byte b;
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 1)]
     internal unsafe struct _OniStream
     {
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 4)]
     internal unsafe struct OniSeek
     {
         internal int frameIndex;
         internal _OniStream* stream;
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 1)]
     internal unsafe struct OniCallbackHandleImpl
     {
     }
     
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = 1)]
     internal unsafe struct _OniDevice
     {
     }

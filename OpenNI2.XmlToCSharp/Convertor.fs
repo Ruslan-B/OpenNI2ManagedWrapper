@@ -40,6 +40,9 @@ let getReturns (element: XElement) = getAttr element xnReturns
 let xnMembers = XName.Get "members"
 let getMembers (element: XElement) = getAttr element xnMembers
 
+let nxAlign = XName.Get "align"
+let getAlign (element: XElement) = getAttr element nxAlign
+
 let xnArtificial = XName.Get "artificial"
 let getArtificial (element: XElement) = getAttr element xnArtificial
 
@@ -196,7 +199,10 @@ type Converter(document : XDocument, writer : IndentedTextWriter, dllName : stri
 
         let fields = getStructFields element |> Seq.map (fun x -> fixTypeAndName (evalElementTypeName x) (getName x))
 
-        writer.WriteLine "[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]"
+        let align = getAlign element
+        let pack = (int align) / 8
+
+        writer.WriteLine (sprintf "[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi, Pack = %i)]" pack)
         writer.WriteLine (sprintf "internal unsafe struct %s" typeName)
         beginBlock()
         fields |> Seq.iter writer.WriteLine

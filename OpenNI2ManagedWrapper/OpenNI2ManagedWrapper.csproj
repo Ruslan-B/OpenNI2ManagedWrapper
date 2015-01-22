@@ -60,7 +60,6 @@
     <Compile Include="ImageRegistrationMode.cs" />
     <Compile Include="ImageRegistrationModeExtensions.cs" />
     <Compile Include="Cropping.cs" />
-    <Compile Include="PS1080.generated.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
